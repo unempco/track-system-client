@@ -1,5 +1,5 @@
 import { ArrowLeftIcon } from '@phosphor-icons/react';
-import { useCanGoBack, useRouter } from '@tanstack/react-router';
+import { Link, useCanGoBack, useRouter } from '@tanstack/react-router';
 
 import { Button } from '@/core/components/ui/button';
 import { Typography } from '@/core/components/ui/typography';
@@ -10,6 +10,7 @@ export function PageHeader({
   titleVariant = 'h1',
   itemId,
   enableBack,
+  backToFallback,
   className,
   afterTitleSlot,
   children,
@@ -35,6 +36,18 @@ export function PageHeader({
             onClick={() => router.history.back()}
           >
             <ArrowLeftIcon />
+          </Button>
+        )}
+        {enableBack && !canGoBack && backToFallback && (
+          <Button
+            asChild
+            variant="secondary"
+            size="icon"
+            className="animate-in fade-in duration-300"
+          >
+            <Link to={backToFallback}>
+              <ArrowLeftIcon />
+            </Link>
           </Button>
         )}
         <Typography
@@ -79,6 +92,7 @@ export type PageHeaderProps = React.ComponentProps<'div'> & {
   titleVariant?: 'h1' | 'h2' | 'h3' | 'h4';
   itemId?: string | number;
   enableBack?: boolean;
+  backToFallback?: string;
   afterTitleSlot?: React.ReactNode;
   children?: React.ReactNode;
 };
