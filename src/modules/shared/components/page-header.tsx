@@ -1,5 +1,5 @@
 import { ArrowLeftIcon } from '@phosphor-icons/react';
-import { Link } from '@tanstack/react-router';
+import { useCanGoBack, useRouter } from '@tanstack/react-router';
 
 import { Button } from '@/core/components/ui/button';
 import { Typography } from '@/core/components/ui/typography';
@@ -9,31 +9,38 @@ export function PageHeader({
   title,
   titleVariant = 'h1',
   itemId,
+  enableBack,
   className,
-  backTo,
   afterTitleSlot,
   children,
   ...restOfProps
 }: PageHeaderProps) {
+  const router = useRouter();
+  const canGoBack = useCanGoBack();
+
   return (
-    <div className={cn('flex justify-between', className)} {...restOfProps}>
+    <div
+      className={cn(
+        'flex flex-col justify-between gap-2 sm:flex-row',
+        className,
+      )}
+      {...restOfProps}
+    >
       <div className="flex items-center gap-2">
-        {backTo && (
+        {enableBack && canGoBack && (
           <Button
-            asChild
             variant="secondary"
             size="icon"
             className="animate-in fade-in duration-300"
+            onClick={() => router.history.back()}
           >
-            <Link to={backTo}>
-              <ArrowLeftIcon />
-            </Link>
+            <ArrowLeftIcon />
           </Button>
         )}
         <Typography
           variant={titleVariant}
           as="h1"
-          className="animate-in fade-in slide-in-from-left-5 duration-300"
+          className="text-left line-clamp-1 animate-in fade-in slide-in-from-left-5 duration-300"
         >
           {title}
         </Typography>
@@ -71,7 +78,7 @@ export type PageHeaderProps = React.ComponentProps<'div'> & {
   title: string;
   titleVariant?: 'h1' | 'h2' | 'h3' | 'h4';
   itemId?: string | number;
-  backTo?: string;
+  enableBack?: boolean;
   afterTitleSlot?: React.ReactNode;
   children?: React.ReactNode;
 };
