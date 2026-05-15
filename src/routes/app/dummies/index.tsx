@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
+import { DataSearch } from '@/core/components/data/data-search';
 import { DataView } from '@/core/components/data/data-view';
 import { NotOkResponseError } from '@/core/errors';
 import { createRouteHead } from '@/layout/lib/create-route-head';
@@ -54,6 +55,7 @@ function RouteComponent() {
         dataTableColumnsSettings={dummiesTableColumns}
         className="grow"
         dataGridCardSlot={(dummy) => <DummyCard dummy={dummy} key={dummy.id} />}
+        dataFiltersSlot={<DataSearch className="w-0 grow" />}
       />
     </div>
   );
