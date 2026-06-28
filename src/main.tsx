@@ -11,6 +11,7 @@ import '@/styles/index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { I18nextProvider, useTranslation } from 'react-i18next';
 
+import { TooltipProvider } from '@/core/components/ui/tooltip';
 import i18n from '@/i18n';
 import { AppRouteError } from '@/layout/components/app-route-error';
 import { ThemeProvider } from '@/layout/contexts/theme-provider';
@@ -65,7 +66,9 @@ if (!rootElement.innerHTML) {
     <I18nextProvider i18n={i18n}>
       <ThemeProvider>
         <QueryClientProvider client={queryClient}>
-          <ContextualizedApp />
+          <TooltipProvider>
+            <ContextualizedApp />
+          </TooltipProvider>
         </QueryClientProvider>
       </ThemeProvider>
     </I18nextProvider>,
