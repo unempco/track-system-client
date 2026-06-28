@@ -16,8 +16,16 @@ import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as AppSettingsRouteImport } from './routes/app/settings'
 import { Route as AppDashboardRouteImport } from './routes/app/dashboard'
 import { Route as AppAboutRouteImport } from './routes/app/about'
+import { Route as AppTransactionsRouteRouteImport } from './routes/app/transactions/route'
+import { Route as AppEmployeesRouteRouteImport } from './routes/app/employees/route'
 import { Route as AppDummiesRouteRouteImport } from './routes/app/dummies/route'
+import { Route as AppDrivesRouteRouteImport } from './routes/app/drives/route'
+import { Route as AppDevicesRouteRouteImport } from './routes/app/devices/route'
+import { Route as AppTransactionsIndexRouteImport } from './routes/app/transactions/index'
+import { Route as AppEmployeesIndexRouteImport } from './routes/app/employees/index'
 import { Route as AppDummiesIndexRouteImport } from './routes/app/dummies/index'
+import { Route as AppDrivesIndexRouteImport } from './routes/app/drives/index'
+import { Route as AppDevicesIndexRouteImport } from './routes/app/devices/index'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -54,27 +62,75 @@ const AppAboutRoute = AppAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppTransactionsRouteRoute = AppTransactionsRouteRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppEmployeesRouteRoute = AppEmployeesRouteRouteImport.update({
+  id: '/employees',
+  path: '/employees',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppDummiesRouteRoute = AppDummiesRouteRouteImport.update({
   id: '/dummies',
   path: '/dummies',
   getParentRoute: () => AppRouteRoute,
+} as any)
+const AppDrivesRouteRoute = AppDrivesRouteRouteImport.update({
+  id: '/drives',
+  path: '/drives',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppDevicesRouteRoute = AppDevicesRouteRouteImport.update({
+  id: '/devices',
+  path: '/devices',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppTransactionsIndexRoute = AppTransactionsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppTransactionsRouteRoute,
+} as any)
+const AppEmployeesIndexRoute = AppEmployeesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppEmployeesRouteRoute,
 } as any)
 const AppDummiesIndexRoute = AppDummiesIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppDummiesRouteRoute,
 } as any)
+const AppDrivesIndexRoute = AppDrivesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppDrivesRouteRoute,
+} as any)
+const AppDevicesIndexRoute = AppDevicesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppDevicesRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/login': typeof LoginRoute
+  '/app/devices': typeof AppDevicesRouteRouteWithChildren
+  '/app/drives': typeof AppDrivesRouteRouteWithChildren
   '/app/dummies': typeof AppDummiesRouteRouteWithChildren
+  '/app/employees': typeof AppEmployeesRouteRouteWithChildren
+  '/app/transactions': typeof AppTransactionsRouteRouteWithChildren
   '/app/about': typeof AppAboutRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/': typeof AppIndexRoute
+  '/app/devices/': typeof AppDevicesIndexRoute
+  '/app/drives/': typeof AppDrivesIndexRoute
   '/app/dummies/': typeof AppDummiesIndexRoute
+  '/app/employees/': typeof AppEmployeesIndexRoute
+  '/app/transactions/': typeof AppTransactionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -83,19 +139,31 @@ export interface FileRoutesByTo {
   '/app/dashboard': typeof AppDashboardRoute
   '/app/settings': typeof AppSettingsRoute
   '/app': typeof AppIndexRoute
+  '/app/devices': typeof AppDevicesIndexRoute
+  '/app/drives': typeof AppDrivesIndexRoute
   '/app/dummies': typeof AppDummiesIndexRoute
+  '/app/employees': typeof AppEmployeesIndexRoute
+  '/app/transactions': typeof AppTransactionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/login': typeof LoginRoute
+  '/app/devices': typeof AppDevicesRouteRouteWithChildren
+  '/app/drives': typeof AppDrivesRouteRouteWithChildren
   '/app/dummies': typeof AppDummiesRouteRouteWithChildren
+  '/app/employees': typeof AppEmployeesRouteRouteWithChildren
+  '/app/transactions': typeof AppTransactionsRouteRouteWithChildren
   '/app/about': typeof AppAboutRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/': typeof AppIndexRoute
+  '/app/devices/': typeof AppDevicesIndexRoute
+  '/app/drives/': typeof AppDrivesIndexRoute
   '/app/dummies/': typeof AppDummiesIndexRoute
+  '/app/employees/': typeof AppEmployeesIndexRoute
+  '/app/transactions/': typeof AppTransactionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -103,12 +171,20 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/login'
+    | '/app/devices'
+    | '/app/drives'
     | '/app/dummies'
+    | '/app/employees'
+    | '/app/transactions'
     | '/app/about'
     | '/app/dashboard'
     | '/app/settings'
     | '/app/'
+    | '/app/devices/'
+    | '/app/drives/'
     | '/app/dummies/'
+    | '/app/employees/'
+    | '/app/transactions/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -117,18 +193,30 @@ export interface FileRouteTypes {
     | '/app/dashboard'
     | '/app/settings'
     | '/app'
+    | '/app/devices'
+    | '/app/drives'
     | '/app/dummies'
+    | '/app/employees'
+    | '/app/transactions'
   id:
     | '__root__'
     | '/'
     | '/app'
     | '/login'
+    | '/app/devices'
+    | '/app/drives'
     | '/app/dummies'
+    | '/app/employees'
+    | '/app/transactions'
     | '/app/about'
     | '/app/dashboard'
     | '/app/settings'
     | '/app/'
+    | '/app/devices/'
+    | '/app/drives/'
     | '/app/dummies/'
+    | '/app/employees/'
+    | '/app/transactions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -188,12 +276,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAboutRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/transactions': {
+      id: '/app/transactions'
+      path: '/transactions'
+      fullPath: '/app/transactions'
+      preLoaderRoute: typeof AppTransactionsRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/employees': {
+      id: '/app/employees'
+      path: '/employees'
+      fullPath: '/app/employees'
+      preLoaderRoute: typeof AppEmployeesRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/dummies': {
       id: '/app/dummies'
       path: '/dummies'
       fullPath: '/app/dummies'
       preLoaderRoute: typeof AppDummiesRouteRouteImport
       parentRoute: typeof AppRouteRoute
+    }
+    '/app/drives': {
+      id: '/app/drives'
+      path: '/drives'
+      fullPath: '/app/drives'
+      preLoaderRoute: typeof AppDrivesRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/devices': {
+      id: '/app/devices'
+      path: '/devices'
+      fullPath: '/app/devices'
+      preLoaderRoute: typeof AppDevicesRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/transactions/': {
+      id: '/app/transactions/'
+      path: '/'
+      fullPath: '/app/transactions/'
+      preLoaderRoute: typeof AppTransactionsIndexRouteImport
+      parentRoute: typeof AppTransactionsRouteRoute
+    }
+    '/app/employees/': {
+      id: '/app/employees/'
+      path: '/'
+      fullPath: '/app/employees/'
+      preLoaderRoute: typeof AppEmployeesIndexRouteImport
+      parentRoute: typeof AppEmployeesRouteRoute
     }
     '/app/dummies/': {
       id: '/app/dummies/'
@@ -202,8 +332,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDummiesIndexRouteImport
       parentRoute: typeof AppDummiesRouteRoute
     }
+    '/app/drives/': {
+      id: '/app/drives/'
+      path: '/'
+      fullPath: '/app/drives/'
+      preLoaderRoute: typeof AppDrivesIndexRouteImport
+      parentRoute: typeof AppDrivesRouteRoute
+    }
+    '/app/devices/': {
+      id: '/app/devices/'
+      path: '/'
+      fullPath: '/app/devices/'
+      preLoaderRoute: typeof AppDevicesIndexRouteImport
+      parentRoute: typeof AppDevicesRouteRoute
+    }
   }
 }
+
+interface AppDevicesRouteRouteChildren {
+  AppDevicesIndexRoute: typeof AppDevicesIndexRoute
+}
+
+const AppDevicesRouteRouteChildren: AppDevicesRouteRouteChildren = {
+  AppDevicesIndexRoute: AppDevicesIndexRoute,
+}
+
+const AppDevicesRouteRouteWithChildren = AppDevicesRouteRoute._addFileChildren(
+  AppDevicesRouteRouteChildren,
+)
+
+interface AppDrivesRouteRouteChildren {
+  AppDrivesIndexRoute: typeof AppDrivesIndexRoute
+}
+
+const AppDrivesRouteRouteChildren: AppDrivesRouteRouteChildren = {
+  AppDrivesIndexRoute: AppDrivesIndexRoute,
+}
+
+const AppDrivesRouteRouteWithChildren = AppDrivesRouteRoute._addFileChildren(
+  AppDrivesRouteRouteChildren,
+)
 
 interface AppDummiesRouteRouteChildren {
   AppDummiesIndexRoute: typeof AppDummiesIndexRoute
@@ -217,8 +385,34 @@ const AppDummiesRouteRouteWithChildren = AppDummiesRouteRoute._addFileChildren(
   AppDummiesRouteRouteChildren,
 )
 
+interface AppEmployeesRouteRouteChildren {
+  AppEmployeesIndexRoute: typeof AppEmployeesIndexRoute
+}
+
+const AppEmployeesRouteRouteChildren: AppEmployeesRouteRouteChildren = {
+  AppEmployeesIndexRoute: AppEmployeesIndexRoute,
+}
+
+const AppEmployeesRouteRouteWithChildren =
+  AppEmployeesRouteRoute._addFileChildren(AppEmployeesRouteRouteChildren)
+
+interface AppTransactionsRouteRouteChildren {
+  AppTransactionsIndexRoute: typeof AppTransactionsIndexRoute
+}
+
+const AppTransactionsRouteRouteChildren: AppTransactionsRouteRouteChildren = {
+  AppTransactionsIndexRoute: AppTransactionsIndexRoute,
+}
+
+const AppTransactionsRouteRouteWithChildren =
+  AppTransactionsRouteRoute._addFileChildren(AppTransactionsRouteRouteChildren)
+
 interface AppRouteRouteChildren {
+  AppDevicesRouteRoute: typeof AppDevicesRouteRouteWithChildren
+  AppDrivesRouteRoute: typeof AppDrivesRouteRouteWithChildren
   AppDummiesRouteRoute: typeof AppDummiesRouteRouteWithChildren
+  AppEmployeesRouteRoute: typeof AppEmployeesRouteRouteWithChildren
+  AppTransactionsRouteRoute: typeof AppTransactionsRouteRouteWithChildren
   AppAboutRoute: typeof AppAboutRoute
   AppDashboardRoute: typeof AppDashboardRoute
   AppSettingsRoute: typeof AppSettingsRoute
@@ -226,7 +420,11 @@ interface AppRouteRouteChildren {
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppDevicesRouteRoute: AppDevicesRouteRouteWithChildren,
+  AppDrivesRouteRoute: AppDrivesRouteRouteWithChildren,
   AppDummiesRouteRoute: AppDummiesRouteRouteWithChildren,
+  AppEmployeesRouteRoute: AppEmployeesRouteRouteWithChildren,
+  AppTransactionsRouteRoute: AppTransactionsRouteRouteWithChildren,
   AppAboutRoute: AppAboutRoute,
   AppDashboardRoute: AppDashboardRoute,
   AppSettingsRoute: AppSettingsRoute,

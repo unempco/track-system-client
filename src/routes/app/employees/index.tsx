@@ -1,0 +1,15 @@
+import { createFileRoute } from '@tanstack/react-router';
+
+import { createRouteHead } from '@/layout/lib/create-route-head';
+
+export const Route = createFileRoute('/app/employees/')({
+  head: createRouteHead({
+    type: 'index',
+    titleI18nKey: 'employees:name',
+  }),
+  component: RouteComponent,
+});
+
+function RouteComponent() {
+  return <div>Hello "/app/employees/"!</div>;
+}
