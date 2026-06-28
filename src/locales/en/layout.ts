@@ -26,6 +26,8 @@ export const layout = {
   navigation: {
     home: 'Home',
     tools: 'Tools',
+    equipment: 'Equipment',
+    tracking: 'Tracking',
     admin: 'Admin',
     dashboard: 'Dashboard',
     settings: 'Settings',

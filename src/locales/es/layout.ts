@@ -26,6 +26,8 @@ export const layout = {
   navigation: {
     home: 'Inicio',
     tools: 'Herramientas',
+    equipment: 'Equipo',
+    tracking: 'Seguimiento',
     admin: 'Administrador',
     dashboard: 'Panel de control',
     settings: 'Configuración',
