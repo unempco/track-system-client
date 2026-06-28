@@ -3,7 +3,7 @@ import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { NavigationProgress } from '@/core/components/navigation-progress';
 import { SidebarInset, SidebarProvider } from '@/core/components/ui/sidebar';
 import { AppHeader } from '@/layout/components/app-header';
-import { SidebarPrimary } from '@/layout/components/sidebar-primary';
+import { AppSidebar } from '@/layout/components/app-sidebar';
 import { createRouteHead } from '@/layout/lib/create-route-head';
 
 export const Route = createFileRoute('/app')({
@@ -25,6 +25,7 @@ export const Route = createFileRoute('/app')({
 function AppLayout() {
   return (
     <SidebarProvider
+      className="bg-sidebar"
       style={
         {
           '--sidebar-width': 'calc(var(--spacing) * 72)',
@@ -33,8 +34,8 @@ function AppLayout() {
       }
     >
       <NavigationProgress />
-      <SidebarPrimary className="animate-in fill-mode-backwards fade-in slide-in-from-left-10 duration-250 ease-out" />
-      <SidebarInset className="h-[100dvh]">
+      <AppSidebar className="animate-in fill-mode-backwards fade-in slide-in-from-left-10 duration-250 ease-out" />
+      <SidebarInset className="h-[100dvh] md:m-2 md:rounded-lg">
         <AppHeader className="animate-in fill-mode-backwards fade-in slide-in-from-top-10 duration-250 delay-250 ease-out" />
         <div className="grow p-6">
           <Outlet />
