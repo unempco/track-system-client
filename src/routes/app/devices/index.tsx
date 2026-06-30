@@ -8,9 +8,9 @@ import { DataSearch } from '@/core/components/data/data-search';
 import { DataView } from '@/core/components/data/data-view';
 import { createRouteHead } from '@/layout/lib/create-route-head';
 import { devicesIndexQueryOptions } from '@/modules/devices/api/query-options';
+import { DeviceCard } from '@/modules/devices/components/device-card';
 import { DevicesHeader } from '@/modules/devices/components/devices-header';
 import { devicesTableColumns } from '@/modules/devices/data/data-table-settings';
-import { DeviceCard } from '@/modules/devices/device-card';
 import { devicesSearchSchema } from '@/modules/devices/schemas';
 
 export const Route = createFileRoute('/app/devices/')({

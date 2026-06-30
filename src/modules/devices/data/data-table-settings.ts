@@ -2,19 +2,11 @@ import type { Device } from '@/modules/devices/types';
 import type { ColumnDef } from '@tanstack/react-table';
 
 import { DataTableCell } from '@/core/components/data/data-table-cell';
-import { DataTableCheckboxCell } from '@/core/components/data/data-table-checkbox-cell';
-import { DataTableCheckboxHeader } from '@/core/components/data/data-table-checkbox-header';
 import { DataTableHeader } from '@/core/components/data/data-table-header';
 import { DataTableColumnType } from '@/core/constants/data-table';
 import { DataTableDeviceActionsCell } from '@/modules/devices/components/data/data-table-device-actions-cell';
 
 export const devicesTableColumns: ColumnDef<Device>[] = [
-  {
-    id: 'select',
-    header: DataTableCheckboxHeader,
-    cell: DataTableCheckboxCell,
-    enableHiding: false,
-  },
   {
     accessorKey: 'id',
     meta: {
@@ -35,70 +27,52 @@ export const devicesTableColumns: ColumnDef<Device>[] = [
     cell: DataTableCell,
   },
   {
-    accessorKey: 'image',
+    accessorKey: 'brand',
     meta: {
-      headerI18nKey: 'devices:fields.image',
-      columnType: DataTableColumnType.IMAGE,
+      headerI18nKey: 'devices:fields.brand',
+      columnType: DataTableColumnType.TEXT,
     },
     header: DataTableHeader,
     cell: DataTableCell,
   },
   {
-    accessorKey: 'key',
+    accessorKey: 'chip',
     meta: {
-      headerI18nKey: 'devices:fields.key',
-      columnType: DataTableColumnType.KEY,
+      headerI18nKey: 'devices:fields.chip',
+      columnType: DataTableColumnType.TEXT,
     },
     header: DataTableHeader,
     cell: DataTableCell,
   },
   {
-    accessorKey: 'website',
+    accessorKey: 'os',
     meta: {
-      headerI18nKey: 'devices:fields.website',
-      columnType: DataTableColumnType.URL,
+      headerI18nKey: 'devices:fields.os',
+      columnType: DataTableColumnType.TEXT,
     },
     header: DataTableHeader,
     cell: DataTableCell,
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'ports',
     meta: {
-      headerI18nKey: 'devices:fields.email',
-      columnType: DataTableColumnType.EMAIL,
+      headerI18nKey: 'devices:fields.ports',
+      columnType: DataTableColumnType.TEXT,
     },
     header: DataTableHeader,
     cell: DataTableCell,
   },
   {
-    accessorKey: 'price',
+    accessorKey: 'available',
     meta: {
-      headerI18nKey: 'devices:fields.price',
-      columnType: DataTableColumnType.MONEY,
-    },
-    header: DataTableHeader,
-    cell: DataTableCell,
-  },
-  {
-    accessorKey: 'status',
-    meta: {
-      headerI18nKey: 'devices:fields.status',
-      columnType: DataTableColumnType.STATUS,
-    },
-    header: DataTableHeader,
-    cell: DataTableCell,
-  },
-  {
-    accessorKey: 'special',
-    meta: {
-      headerI18nKey: 'devices:fields.isSpecial',
+      headerI18nKey: 'devices:fields.available',
       columnType: DataTableColumnType.BOOLEAN,
     },
     header: DataTableHeader,
     cell: DataTableCell,
   },
   {
-    accessorKey: 'created_at',
+    accessorKey: 'createdAt',
     meta: {
       headerI18nKey: 'devices:fields.createdAt',
       columnType: DataTableColumnType.DATETIME,

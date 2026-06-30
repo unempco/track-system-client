@@ -1,6 +1,12 @@
 export const devices = {
   name: 'Dispositivos',
-  fields: {},
+  fields: {
+    brand: 'Marca',
+    chip: 'Chip',
+    os: 'Sistema operativo',
+    ports: 'Puertos',
+    available: 'Disponible',
+  },
   actions: {},
   messages: {},
   filters: {},
