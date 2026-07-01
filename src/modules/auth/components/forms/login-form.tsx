@@ -76,7 +76,6 @@ export function LoginForm({
                       {...field}
                       id="login-form-email"
                       aria-invalid={fieldState.invalid}
-                      placeholder="myemail@example.com"
                       disabled={isSubmitting}
                     />
                     {fieldState.invalid && (
@@ -98,7 +97,6 @@ export function LoginForm({
                       id="login-form-password"
                       type="password"
                       aria-invalid={fieldState.invalid}
-                      placeholder="*******"
                       disabled={isSubmitting}
                     />
                     {fieldState.invalid && (

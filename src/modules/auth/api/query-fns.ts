@@ -1,80 +1,67 @@
 import type { LoginData, User } from '@/modules/auth/types';
 
-import { sleep } from '@/core/lib/utils';
-import {
-  getAccessToken,
-  removeAccessToken,
-  removeRefreshToken,
-  setAccessToken,
-  setRefreshToken,
-} from '@/modules/auth/lib/token';
+import { supabase } from '@/supabase';
 
 export async function login(data: LoginData): Promise<User> {
-  await sleep(500);
+  const { data: authData, error } = await supabase.auth.signInWithPassword({
+    email: data.email,
+    password: data.password,
+  });
 
-  if (data.email === 'admin@example.com' && data.password === 'adminadmin') {
-    setAccessToken('mock-jwt-token');
-    setRefreshToken('mock-jwt-refresh');
-
-    return {
-      id: 'skKjd78a-#',
-      username: 'admin',
-      fullName: 'Admin Root',
-      email: 'admin@example.com',
-      roles: ['admin'],
-      permissions: [
-        'Dummies.Read',
-        'Dummies.Write',
-        'Dummies.Modify',
-        'Dummies.Delete',
-        'Devices.Read',
-        'Devices.Write',
-        'Devices.Modify',
-        'Devices.Delete',
-      ],
-      accessToken: 'mock-jwt-token',
-      refreshToken: 'mock-jwt-refresh',
-    };
+  if (error || !authData.user || !authData.session) {
+    throw new Error(error?.message || 'Invalid username or password');
   }
 
-  throw new Error('Invalid username or password');
+  const { user, session } = authData;
+
+  return {
+    id: user.id,
+    email: user.email ?? '',
+    // Custom user metadata properties safely fall back if not initialized yet
+    username:
+      user.user_metadata?.username || user.email?.split('@')[0] || 'user',
+    fullName: user.user_metadata?.fullName || 'App User',
+    roles: user.user_metadata?.roles || ['user'],
+    permissions: user.user_metadata?.permissions || ['Devices.Read'],
+
+    // Provided for compatibility with your User shape, though Supabase manages these automatically
+    accessToken: session.access_token,
+    refreshToken: session.refresh_token,
+  };
 }
 
 export async function logout(): Promise<void> {
-  await sleep(500);
+  // Supabase automatically wipes local tokens and invalidates the session on the server
+  const { error } = await supabase.auth.signOut();
 
-  removeAccessToken();
-  removeRefreshToken();
-
-  return;
+  if (error) {
+    throw new Error(error.message);
+  }
 }
 
 export async function verifySession(): Promise<User> {
-  await sleep(500);
+  // Fetch the current active session from storage / backend verification
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
 
-  const token = getAccessToken();
-
-  if (token === 'mock-jwt-token') {
-    return {
-      id: 'skKjd78a-#',
-      username: 'admin',
-      fullName: 'Admin Root',
-      email: 'admin@example.com',
-      roles: ['admin'],
-      permissions: [
-        'Dummies.Read',
-        'Dummies.Write',
-        'Dummies.Modify',
-        'Dummies.Delete',
-        'Devices.Read',
-        'Devices.Write',
-        'Devices.Modify',
-        'Devices.Delete',
-      ],
-      accessToken: 'mock-jwt-token',
-      refreshToken: 'mock-jwt-refresh',
-    };
+  if (error || !session || !session.user) {
+    throw new Error('Invalid token or session expired');
   }
 
-  throw new Error('Invalid token');
+  const user = session.user;
+
+  // Map the session user back to your custom app User structure
+  return {
+    id: user.id,
+    email: user.email ?? '',
+    username:
+      user.user_metadata?.username || user.email?.split('@')[0] || 'user',
+    fullName: user.user_metadata?.fullName || 'App User',
+    roles: user.user_metadata?.roles || ['user'],
+    permissions: user.user_metadata?.permissions || ['Devices.Read'],
+    accessToken: session.access_token,
+    refreshToken: session.refresh_token,
+  };
 }
