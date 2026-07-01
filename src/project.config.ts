@@ -2,11 +2,11 @@ import { DateFormat } from '@/core/constants/dates';
 
 // Some of this configs will be user decisions
 export default {
-  name: 'React admin',
-  version: 'v1.0.0',
+  name: 'SeaTrack',
+  version: 'beta',
   brand: {
-    name: 'Paul2g.dev',
-    logoSrc: '/logo.svg',
+    name: 'Dilato',
+    logoSrc: '/logo.png',
   },
   time: {
     timeZone: 'America/Tijuana',
