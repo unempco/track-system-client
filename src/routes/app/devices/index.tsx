@@ -1,6 +1,5 @@
-import type { Device, DevicesSearchParams } from '@/modules/devices/types';
+import type { DevicesSearchParams } from '@/modules/devices/types';
 
-import { useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
@@ -29,16 +28,12 @@ function RouteComponent() {
   const search = Route.useSearch();
   const { data } = useSuspenseQuery(devicesIndexQueryOptions(search));
 
-  const [selectedItems, setSelectedItems] = useState<Device[]>([]);
-
   return (
     <div className="min-h-full flex flex-col gap-4">
-      <DevicesHeader selectedItems={selectedItems} />
+      <DevicesHeader />
       <DataView
         preferencesNamespace="devices"
         items={data.items}
-        selectedItems={selectedItems}
-        setSelectedItems={setSelectedItems}
         pagination={data.meta}
         dataTableColumnsSettings={devicesTableColumns}
         className="grow"

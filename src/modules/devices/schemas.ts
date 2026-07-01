@@ -7,7 +7,7 @@ export const deviceSchema = z.object({
   id: z.number(),
   createdAt: z.coerce.date(),
   // User generated
-  name: z.string().nullable(),
+  name: z.string(),
   brand: z.string().nullable(),
   chip: z.string().nullable(),
   os: z.string().nullable(),
@@ -20,7 +20,7 @@ export const deviceFormSchema = deviceSchema.omit({
 });
 
 export const devicesFiltersSchema = z.object({
-  search: z.string().optional().catch('')
+  search: z.string().optional().catch(''),
 });
 export const devicesSearchSchema = paginationSearchSchema.extend(
   devicesFiltersSchema.shape,

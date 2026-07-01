@@ -12,10 +12,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/core/components/ui/dropdown-menu';
-import { PermissionGuard } from '@/modules/auth/components/permissions-guard';
 import { UpdateDeviceDialog } from '@/modules/devices/components/dialogs/update-device-dialog';
 import { useDeleteDeviceMutation } from '@/modules/devices/hooks/mutations';
-import { ApiPermissions } from '@/modules/shared/constants/permissions';
 
 export function DeviceActions({
   device,
@@ -29,58 +27,59 @@ export function DeviceActions({
 
   const deleteMutation = useDeleteDeviceMutation({ deviceId: device.id });
 
+  // TODO: Implement permission checks for update and delete actions
+  const canUpdate = true;
+  const canDelete = true;
+
   return (
-    <PermissionGuard
-      permissions={[
-        ApiPermissions.Devices.UPDATE,
-        ApiPermissions.Devices.DELETE,
-      ]}
-    >
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className={className}
-            {...restOfProps}
-          >
-            <DotsThreeIcon weight="bold" className="size-5" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <PermissionGuard permissions={ApiPermissions.Devices.UPDATE}>
-            <DropdownMenuItem onClick={() => setEditOpen(true)}>
-              <PencilIcon />
-              {t('actions.edit')}
-            </DropdownMenuItem>
-          </PermissionGuard>
-
-          <PermissionGuard permissions={ApiPermissions.Devices.DELETE}>
-            <DropdownMenuItem
-              variant="destructive"
-              onClick={() => setConfirmOpen(true)}
+    canUpdate &&
+    canDelete && (
+      <>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className={className}
+              {...restOfProps}
             >
-              <TrashIcon />
-              {t('actions.delete')}
-            </DropdownMenuItem>
-          </PermissionGuard>
-        </DropdownMenuContent>
-      </DropdownMenu>
+              <DotsThreeIcon weight="bold" className="size-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {canUpdate && (
+              <DropdownMenuItem onClick={() => setEditOpen(true)}>
+                <PencilIcon />
+                {t('actions.edit')}
+              </DropdownMenuItem>
+            )}
+            {canDelete && (
+              <DropdownMenuItem
+                variant="destructive"
+                onClick={() => setConfirmOpen(true)}
+              >
+                <TrashIcon />
+                {t('actions.delete')}
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
 
-      <UpdateDeviceDialog
-        device={device}
-        open={editOpen}
-        onOpenChange={setEditOpen}
-      />
+        <UpdateDeviceDialog
+          device={device}
+          open={editOpen}
+          onOpenChange={setEditOpen}
+        />
 
-      <DeleteConfirmationDialog
-        open={confirmOpen}
-        onOpenChange={setConfirmOpen}
-        onConfirm={() => deleteMutation.mutate()}
-        isPending={deleteMutation.isPending}
-        name={device.name}
-      />
-    </PermissionGuard>
+        <DeleteConfirmationDialog
+          open={confirmOpen}
+          onOpenChange={setConfirmOpen}
+          onConfirm={() => deleteMutation.mutate()}
+          isPending={deleteMutation.isPending}
+          name={device.name}
+        />
+      </>
+    )
   );
 }
 

@@ -22,7 +22,7 @@ export async function login(data: LoginData): Promise<User> {
       user.user_metadata?.username || user.email?.split('@')[0] || 'user',
     fullName: user.user_metadata?.fullName || 'App User',
     roles: user.user_metadata?.roles || ['user'],
-    permissions: user.user_metadata?.permissions || ['Devices.Read'],
+    permissions: user.user_metadata?.permissions,
 
     // Provided for compatibility with your User shape, though Supabase manages these automatically
     accessToken: session.access_token,
@@ -60,7 +60,7 @@ export async function verifySession(): Promise<User> {
       user.user_metadata?.username || user.email?.split('@')[0] || 'user',
     fullName: user.user_metadata?.fullName || 'App User',
     roles: user.user_metadata?.roles || ['user'],
-    permissions: user.user_metadata?.permissions || ['Devices.Read'],
+    permissions: user.user_metadata?.permissions,
     accessToken: session.access_token,
     refreshToken: session.refresh_token,
   };
